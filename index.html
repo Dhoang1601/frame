@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tạo Avatar</title>
+    <style>
+        .avatar-frame {
+            width: 200px;
+            height: 200px;
+            border: 2px solid #000;
+            position: relative;
+            overflow: hidden; /* Thêm dòng này để đảm bảo ảnh không vượt ra khỏi khung */
+        }
+        .avatar-img {
+            width: 100%;
+            height: auto; /* Thay đổi thuộc tính height thành auto để duy trì tỷ lệ ảnh */
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tạo Avatar siêu đẳng cấp của bạn</h1>
+    <div class="avatar-frame" id="avatarFrame">
+        <img src="frame.png" alt="Avatar Frame">
+    </div>
+    <input type="file" id="uploadImage" accept="image/*">
+    <script>
+        document.getElementById('uploadImage').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const avatarFrame = document.getElementById('avatarFrame');
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.className = 'avatar-img';
+
+                    // Xóa hình ảnh cũ trước khi thêm hình ảnh mới
+                    while (avatarFrame.firstChild) {
+                        avatarFrame.removeChild(avatarFrame.firstChild);
+                    }
+
+                    avatarFrame.appendChild(img);
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
+</html>
