@@ -21,9 +21,9 @@
 
   .canvas-container {
   position: relative;
-  width: 100%; /* Chiếm toàn bộ chiều rộng màn hình */
-  max-width: 400px; /* Giới hạn tối đa */
-  aspect-ratio: 1; /* Giữ tỷ lệ vuông */
+  width: 100%; 
+  max-width: 400px; 
+  aspect-ratio: 1; 
   margin: 20px auto;
   border: 2px solid #ccc;
   background-color: #fff;
@@ -87,8 +87,8 @@ label[for="upload"]:hover,
     .controls {
   margin: 20px auto;
   padding: 15px;
-  width: 90%; /* Giảm chiều rộng cho điện thoại */
-  max-width: 350px; /* Giới hạn tối đa */
+  width: 90%;  
+  max-width: 350px; 
   background-color: #ffffff;
   border: 2px solid #fda085;
   border-radius: 15px;
@@ -103,7 +103,7 @@ label[for="upload"]:hover,
 
 .button-container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Giảm số cột cho điện thoại */
+  grid-template-columns: repeat(3, 1fr);
   gap: 10px;
   justify-items: center;
   align-items: center;
@@ -214,7 +214,7 @@ label[for="upload"]:hover,
   <canvas id="canvas" style="display: none;"></canvas>
   <script src="app.js"></script>
   <script>
-    // Kiểm tra hệ điều hành iOS
+   
     function isIOS() {
       return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
     }
@@ -224,12 +224,12 @@ label[for="upload"]:hover,
       const image = canvas.toDataURL("image/png");
 
       if (isIOS()) {
-        // Mở ảnh trong tab mới với hướng dẫn
+
         const newTab = window.open();
         newTab.document.write(`<h1>Lưu ảnh bằng cách nhấn giữ vào ảnh và chọn 'Lưu Ảnh vào...'</h1>`);
         newTab.document.write(`<img src="${image}" style="width: 100%; height: auto;">`);
       } else {
-        // Tải xuống trực tiếp trên Android hoặc các thiết bị khác
+       
         const link = document.createElement('a');
         link.href = image;
         link.download = 'image.png';
