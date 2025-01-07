@@ -1,184 +1,223 @@
-
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="csrf-token" content="OnYfCuaDM9W8LTVDfhVSWaqeVGJi60xZAgp2SK65">
-    <link rel="icon" type="image/png" href="https://frame.9tiny.link/favicon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ghép ảnh vào khung</title>
+  <style>
+    body {
+      font-family: 'Roboto', Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+      background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+      color: #333;
+    }
 
-    <title>Tạo avatar kèm theo khung cực đẳng cấp "HỘI XUÂN 2025".</title>
-    <meta name="description"
-          content="Tạo avatar kèm khung ảnh cực chất.">
-    <meta name="keywords" content="avatar frame,logo frame, photo editor, template,frame,campaign,viral">
-    <link rel="canonical" href="https://frame.9tiny.link/frame-1736178792png"/>
+    h1 {
+      font-size: 2.5rem;
+      color: #ffffff;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      margin-bottom: 20px;
+    }
 
-    <meta property="og:type" content="article"/>6
-    <meta property="og:title" content="Make a Frame | Create and share beautiful avatar frames"/>
-    <meta property="og:description"
-          content="A simple, personalized and easy to use platform built for people and organizations around the world to create, share beautiful avatar frames"/>
-    <meta property="og:image" content="https://frame.9tiny.link/images/avatar_frame.png"/>
-    <meta property="og:url" content="https://frame.9tiny.link/frame-1736178792png"/>
-    <meta property="og:site_name" content="Avatar Frame"/>
+    .canvas-container {
+      position: relative;
+      width: 500px;
+      height: 500px;
+      margin: 20px auto;
+      border: 2px solid #ccc;
+      background-color: #fff;
+      overflow: hidden;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
 
-    <meta name="twitter:title" content="Make a Frame | Create and share beautiful avatar frames">
-    <meta name="twitter:description"
-          content="A simple, personalized and easy to use platform built for people and organizations around the world to create, share beautiful avatar frames">
-    <meta name="twitter:image" content="https://frame.9tiny.link/images/avatar_frame.png">
+    #uploaded-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+      transform-origin: center;
+    }
 
-    <link rel="preload" as="style" href="https://frame.9tiny.link/build/assets/app.0d749f24.css" /><link rel="preload" as="style" href="https://frame.9tiny.link/build/assets/cropper.343abd7d.css" /><link rel="modulepreload" href="https://frame.9tiny.link/build/assets/app.91924706.js" /><link rel="stylesheet" href="https://frame.9tiny.link/build/assets/app.0d749f24.css" /><link rel="stylesheet" href="https://frame.9tiny.link/build/assets/cropper.343abd7d.css" /><script type="module" src="https://frame.9tiny.link/build/assets/app.91924706.js"></script>	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8587568556286567"
-     crossorigin="anonymous"></script>
+    .frame {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    label[for="upload"] {
+      display: inline-block;
+      margin: 10px;
+      padding: 15px 25px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #fda085;
+      background-color: #ffffff;
+      border: 2px solid #fda085;
+      border-radius: 25px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    label[for="upload"]:hover {
+      background-color: #fda085;
+      color: #ffffff;
+    }
+
+    #download {
+      font-size: 16px;
+      font-weight: bold;
+      background-color: #ffffff;
+      color: #fda085;
+      border: 2px solid #fda085;
+      border-radius: 25px;
+      padding: 15px 25px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    #download:hover {
+      background-color: #fda085;
+      color: #ffffff;
+    }
+
+    .controls {
+      margin: 20px auto;
+      padding: 20px;
+      width: 400px;
+      background-color: #ffffff;
+      border: 2px solid #fda085;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .controls h2 {
+      margin-bottom: 15px;
+      color: #fda085;
+    }
+
+    .button-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      justify-items: center;
+      align-items: center;
+    }
+
+    .button-container button {
+      width: 50px;
+      height: 50px;
+      font-size: 18px;
+      font-weight: bold;
+      background-color: #ffffff;
+      color: #fda085;
+      border: 2px solid #fda085;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .button-container button:hover {
+      background-color: #fda085;
+      color: #ffffff;
+    }
+
+    #move-up {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    #move-down {
+      grid-column: 2;
+      grid-row: 2;
+    }
+
+    #move-left {
+      grid-column: 1;
+      grid-row: 2;
+    }
+
+    #move-right {
+      grid-column: 3;
+      grid-row: 2;
+    }
+
+    #zoom-in {
+      grid-column: 4;
+      grid-row: 1;
+    }
+
+    #zoom-out {
+      grid-column: 4;
+      grid-row: 2;
+    }
+
+    #footer {
+      font-weight: bold;
+    }
+  </style>
 </head>
-<body class="bg-gray-100">
-<section class="md:m-4 m-2">
-    <div class="bg-white rounded relative preview-frame m-auto w-[320px] h-[320px] sm:w-[500px] sm:h-[500px]">
-        <img class="img-frame absolute z-10 w-full h-full object-cover object-center"
-             alt="Frame image" src="frame.png" width="500" height="500">
-
-        <img id="avatar-crop" alt="Avatar image" class="w-full h-full object-cover object-center"
-             src="avatar.png" width="500" height="500">
+<body>
+  <h1>GHÉP AVATAR CỦA BẠN VÀO KHUNG "HỘI XUÂN 2025"</h1>
+  <div class="canvas-container">
+    <img id="uploaded-image" crossOrigin="anonymous" src="" alt="Ảnh tải lên">
+    <img class="frame" crossOrigin="anonymous" src="frame.png" alt="Khung ảnh">
+  </div>
+  <label for="upload">Ấn vào đây để tải ảnh cần ghép lên</label>
+  <input type="file" id="upload" accept="image/*" style="display: none;">
+  <button id="download">Tải ảnh về</button>
+  <div class="controls">
+    <h2>Điều chỉnh ảnh</h2>
+    <div class="button-container">
+      <button id="move-up">⬆</button>
+      <button id="move-down">⬇</button>
+      <button id="move-left">⬅</button>
+      <button id="move-right">➡</button>
+      <button id="zoom-in">+</button>
+      <button id="zoom-out">-</button>
     </div>
+  </div>
+  <canvas id="canvas" style="display: none;"></canvas>
+  <script src="app.js"></script>
+  <script>
+    // Kiểm tra hệ điều hành iOS
+    function isIOS() {
+      return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    }
 
-    <div id="cropperActions" class="hidden flex py-2 gap-1 sm:gap-2 justify-between max-w-[calc(50vh)] m-auto">
-        <div class="flex col-span-2">
-            <button id="cropZoomIn"
-                    class="crop-move bg-teal-500 w-8 h-8 active:shadow-none hover:bg-teal-700 rounded-l shadow shadow-teal-500 flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-white">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6" />
-                </svg>
-            </button>
+    document.getElementById('download').addEventListener('click', () => {
+      const canvas = document.getElementById('canvas');
+      const image = canvas.toDataURL("image/png");
 
-            <button id="cropZoomOut"
-                    class="crop-move bg-teal-500 w-8 h-8 active:shadow-none hover:bg-teal-700 rounded-r shadow shadow-teal-500 flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-white">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM13.5 10.5h-6" />
-                </svg>
-            </button>
-        </div>
-
-        <div class="flex col-span-4 sm:col-span-3">
-
-            <button id="cropLeft"
-                    class="crop-move bg-teal-500 w-8 h-8 rounded-l active:shadow-none hover:bg-teal-700 shadow shadow-teal-500 flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-white">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
-                </svg>
-            </button>
-
-            <button id="cropRight"
-                    class="crop-move bg-teal-500 w-8 h-8 active:shadow-none hover:bg-teal-700 shadow shadow-teal-500 flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-white">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
-                </svg>
-            </button>
-
-            <button id="cropUp"
-                    class="crop-move bg-teal-500 w-8 h-8 active:shadow-none hover:bg-teal-700 shadow shadow-teal-500 flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-white">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75L12 3m0 0l3.75 3.75M12 3v18" />
-                </svg>
-            </button>
-
-            <button id="cropDown"
-                    class="crop-move bg-teal-500 w-8 h-8 rounded-r active:shadow-none hover:bg-teal-700 shadow shadow-teal-500 flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-white">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25L12 21m0 0l-3.75-3.75M12 21V3" />
-                </svg>
-            </button>
-        </div>
-
-        <div class="flex col-span-2">
-            <button id="cropScaleX"
-                    class="crop-move bg-teal-500 w-8 h-8 active:shadow-none hover:bg-teal-700 rounded-l shadow shadow-teal-500 flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-white">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
-                </svg>
-            </button>
-
-            <button id="cropScaleY"
-                    class="crop-move bg-teal-500 w-8 h-8 active:shadow-none hover:bg-teal-700 rounded-r shadow shadow-teal-500 flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-white">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 7.5L7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5" />
-                </svg>
-            </button>
-        </div>
-
-        <div class="col-span-2 sm:col-span-3">
-            <div id="frameDownload">
-                <a href="#"
-                   class="flex gap-2 justify-center items-center p-2 sm:py-1 bg-white text-blue-900 rounded border border-blue-900 hover:bg-blue-900 hover:text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 sm:w-6 sm:h-6">
-                        <path fill-rule="evenodd"
-                              d="M10.5 3.75a6 6 0 00-5.98 6.496A5.25 5.25 0 006.75 20.25H18a4.5 4.5 0 002.206-8.423 3.75 3.75 0 00-4.133-4.303A6.001 6.001 0 0010.5 3.75zm2.25 6a.75.75 0 00-1.5 0v4.94l-1.72-1.72a.75.75 0 00-1.06 1.06l3 3a.75.75 0 001.06 0l3-3a.75.75 0 10-1.06-1.06l-1.72 1.72V9.75z"
-                              clip-rule="evenodd"/>
-                    </svg>
-
-                    <div class="hidden sm:block">
-                        <button class="text-sm truncate text-md">Download</button>
-                    </div>
-                </a>
-            </div>
-
-            <div id="frameDownloading" class="hidden">
-                <a href="#"
-                   class="flex justify-center items-center p-2 sm:py-1 bg-white text-blue-900 rounded border border-blue-900 hover:bg-blue-900 hover:text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                         class="animate-bounce w-6 h-6">
-                        <path fill-rule="evenodd"
-                              d="M10.5 3.75a6 6 0 00-5.98 6.496A5.25 5.25 0 006.75 20.25H18a4.5 4.5 0 002.206-8.423 3.75 3.75 0 00-4.133-4.303A6.001 6.001 0 0010.5 3.75zm2.25 6a.75.75 0 00-1.5 0v4.94l-1.72-1.72a.75.75 0 00-1.06 1.06l3 3a.75.75 0 001.06 0l3-3a.75.75 0 10-1.06-1.06l-1.72 1.72V9.75z"
-                              clip-rule="evenodd"/>
-                    </svg>
-                </a>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section
-    class="fixed bottom-0 md:bottom-4 z-50 inset-x-0 w-[500px] max-w-full m-auto rounded-t md:rounded shadow p-2 pb-0 bg-gray-300">
-    <form id="frameForm" method="POST" action="https://frame.9tiny.link/frame/create" enctype="multipart/form-data">
-        <input type="hidden" name="_token" value="OnYfCuaDM9W8LTVDfhVSWaqeVGJi60xZAgp2SK65" autocomplete="off">        <input id="cropperAvatar" name="cropper_avatar" type="hidden">
-        <input id="cropperFrameUrl" name="cropper_frame_url" value="uploads/frame-1736178792png" type="hidden">
-
-        <div class="hidden relative mb-4 w-full">
-            <select name="type"
-                    class="block appearance-none w-full bg-white border border-blue-900 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
-                <option value="1">Facebook Frame cover</option>
-            </select>
-            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
-                </svg>
-            </div>
-        </div>
-                <div class="flex gap-4 justify-between">
-            <div class="w-full">
-                <label
-                    class="flex gap-4 items-center p-2 bg-white text-teal-900 rounded-lg border border-teal-600 cursor-pointer hover:bg-teal-600 hover:text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
-                        <path fill-rule="evenodd"
-                              d="M10.5 3.75a6 6 0 00-5.98 6.496A5.25 5.25 0 006.75 20.25H18a4.5 4.5 0 002.206-8.423 3.75 3.75 0 00-4.133-4.303A6.001 6.001 0 0010.5 3.75zm2.03 5.47a.75.75 0 00-1.06 0l-3 3a.75.75 0 101.06 1.06l1.72-1.72v4.94a.75.75 0 001.5 0v-4.94l1.72 1.72a.75.75 0 101.06-1.06l-3-3z"
-                              clip-rule="evenodd"/>
-                    </svg>
-
-                    <div class="text-left">
-                        <p class="text-sm truncante">Select a Avatar<sup class="text-red-900">*</sup></p>
-                        <span class="text-sm text-gray-400 truncate">900x900px (png,jpg,jpeg)</span>
-                        <input accept="image/png,image/jpg,image/jpeg" name="avatar" data-callback="uploadAvatarImage"
-                               type='file' class="image hidden"/>
-                    </div>
-                </label>
-            </div>
-        </div>
-    </form>
-    <div class="text-center w-full pt-2">
-        <a class="text-gray-400 text-sm hover:text-teal-700 hover:underline" href="https://www.facebook.com/TruyenthongthieunhiGXThanhthe" target="_blank">
-            ©2025 | THIẾU NHI THÁNH THỂ - GIÁO XỨ THÁNH THỂ
-        </a>
-    </div>
-</section>
-
-<link rel="modulepreload" href="https://frame.9tiny.link/build/assets/cropper.ca57a8d8.js" /><script type="module" src="https://frame.9tiny.link/build/assets/cropper.ca57a8d8.js"></script></body>
+      if (isIOS()) {
+        // Mở ảnh trong tab mới với hướng dẫn
+        const newTab = window.open();
+        newTab.document.write(`<h1>Lưu ảnh bằng cách nhấn giữ vào ảnh và chọn 'Lưu vào Ảnh'</h1>`);
+        newTab.document.write(`<img src="${image}" style="width: 100%; height: auto;">`);
+      } else {
+        // Tải xuống trực tiếp trên Android hoặc các thiết bị khác
+        const link = document.createElement('a');
+        link.href = image;
+        link.download = 'image.png';
+        link.click();
+      }
+    });
+  </script>
+  <div id="footer">
+    <a href="https://www.facebook.com/TruyenthongthieunhiGXThanhthe">
+      © 2025 THIẾU NHI GIÁO XỨ THÁNH THỂ
+    </a>
+  </div>
+</body>
 </html>
