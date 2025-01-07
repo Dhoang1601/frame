@@ -6,72 +6,65 @@
   <title>Ghép ảnh vào khung</title>
   <style>
     body {
-      font-family: 'Roboto', Arial, sans-serif;
-      text-align: center;
-      padding: 20px;
-      background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
-      color: #333;
-    }
+  font-family: 'Roboto', Arial, sans-serif;
+  text-align: center;
+  padding: 10px;
+  background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+  color: #333;
+}
+  h1 {
+    font-size: 2rem;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    margin-bottom: 20px;
+  }
 
-    h1 {
-      font-size: 2.5rem;
-      color: #ffffff;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-      margin-bottom: 20px;
-    }
+  .canvas-container {
+  position: relative;
+  width: 100%; /* Chiếm toàn bộ chiều rộng màn hình */
+  max-width: 400px; /* Giới hạn tối đa */
+  aspect-ratio: 1; /* Giữ tỷ lệ vuông */
+  margin: 20px auto;
+  border: 2px solid #ccc;
+  background-color: #fff;
+  overflow: hidden;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
 
-    .canvas-container {
-      position: relative;
-      width: 500px;
-      height: 500px;
-      margin: 20px auto;
-      border: 2px solid #ccc;
-      background-color: #fff;
-      overflow: hidden;
-      border-radius: 15px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
+#uploaded-image,
+.frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
-    #uploaded-image {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: 1;
-      transform-origin: center;
-    }
+    
 
-    .frame {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 2;
-      pointer-events: none;
-    }
+label[for="upload"],
+#download {
+  display: inline-block;
+  margin: 10px auto;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fda085;
+  background-color: #ffffff;
+  border: 2px solid #fda085;
+  border-radius: 25px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
 
-    label[for="upload"] {
-      display: inline-block;
-      margin: 10px;
-      padding: 15px 25px;
-      font-size: 16px;
-      font-weight: bold;
-      color: #fda085;
-      background-color: #ffffff;
-      border: 2px solid #fda085;
-      border-radius: 25px;
-      cursor: pointer;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      transition: all 0.3s ease;
-    }
-
-    label[for="upload"]:hover {
-      background-color: #fda085;
-      color: #ffffff;
-    }
+label[for="upload"]:hover,
+#download:hover {
+  background-color: #fda085;
+  color: #ffffff;
+}
 
     #download {
       font-size: 16px;
@@ -92,46 +85,48 @@
     }
 
     .controls {
-      margin: 20px auto;
-      padding: 20px;
-      width: 400px;
-      background-color: #ffffff;
-      border: 2px solid #fda085;
-      border-radius: 15px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
+  margin: 20px auto;
+  padding: 15px;
+  width: 90%; /* Giảm chiều rộng cho điện thoại */
+  max-width: 350px; /* Giới hạn tối đa */
+  background-color: #ffffff;
+  border: 2px solid #fda085;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
 
-    .controls h2 {
-      margin-bottom: 15px;
-      color: #fda085;
-    }
+.controls h2 {
+  margin-bottom: 15px;
+  color: #fda085;
+  font-size: 1.2rem;
+}
 
-    .button-container {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      justify-items: center;
-      align-items: center;
-    }
+.button-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Giảm số cột cho điện thoại */
+  gap: 10px;
+  justify-items: center;
+  align-items: center;
+}
 
-    .button-container button {
-      width: 50px;
-      height: 50px;
-      font-size: 18px;
-      font-weight: bold;
-      background-color: #ffffff;
-      color: #fda085;
-      border: 2px solid #fda085;
-      border-radius: 50%;
-      cursor: pointer;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      transition: all 0.3s ease;
-    }
+.button-container button {
+  width: 45px;
+  height: 45px;
+  font-size: 14px;
+  font-weight: bold;
+  background-color: #ffffff;
+  color: #fda085;
+  border: 2px solid #fda085;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
 
-    .button-container button:hover {
-      background-color: #fda085;
-      color: #ffffff;
-    }
+.button-container button:hover {
+  background-color: #fda085;
+  color: #ffffff;
+}
 
     #move-up {
       grid-column: 2;
@@ -164,8 +159,36 @@
     }
 
     #footer {
-      font-weight: bold;
-    }
+  font-weight: bold;
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  .canvas-container {
+    max-width: 300px;
+  }
+
+  label[for="upload"],
+  #download {
+    font-size: 12px;
+    padding: 10px 15px;
+  }
+
+  .controls {
+    max-width: 300px;
+    padding: 10px;
+  }
+
+  .button-container button {
+    width: 40px;
+    height: 40px;
+    font-size: 12px;
+  }
+}
   </style>
 </head>
 <body>
